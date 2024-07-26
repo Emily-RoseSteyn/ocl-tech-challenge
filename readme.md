@@ -43,3 +43,16 @@ Where CONTAINER_NAME is the docker service name that shows up for the postgres i
 ## Part 2: API Development
 
 ## Part 3: Deployment Strategy
+
+
+# Task List
+* Clean data
+* Save data - Django
+* Init tables django
+* Handle duplicates?
+* Data diagram
+* Description of not doing second level scraping - would need more info to ensure scraping is gathering correct data and in expected format
+* Notes on robustness - error handling etc and maintainability
+* API to retrieve from db
+* Additional descriptions based on api?
+* Part 3 deployment strategy
