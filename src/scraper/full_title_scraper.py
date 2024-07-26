@@ -1,5 +1,3 @@
-from io import StringIO
-
 import pandas as pd
 import requests
 
@@ -32,19 +30,26 @@ def get_suburbs():
 def scrape_full_title():
     suburbs = get_suburbs()
 
-    url = 'http://valuation2022.durban.gov.za/FramePages/Search.aspx'
+    url = 'http://valuation2022.durban.gov.za/FramePages/SearchResult.aspx'
 
     # For each suburb, make request to get data
     for index, suburb in suburbs.iterrows():
         suburb_value = suburb["value"]
         search_url = (f"{url}?Roll=1&VolumeNo=&RateNumber=&StreetNo=&StreetName=&Suburb={suburb_value}"
-                      f"&ERF=&Portion=&DeedsTown=&SchemeName=&SectionNumber=&All=false")
+                      f"&ERF=&Portion=&DeedsTown=&SchemeName=&SectionNumber=&All=true")
 
         print(search_url)
         response = requests.get(search_url)
         soup = BeautifulSoup(response.content, 'html.parser')
-        print(soup)
+        table = soup.find('table', class_='searchResultTable')
+
+        if table:
+            # Do something with the table
+            print("Table found")
+        else:
+            print("Table not found")
         break
+
 
 scrape_full_title()
 # Full title
