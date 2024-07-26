@@ -5,6 +5,8 @@ from bs4 import BeautifulSoup
 
 
 def get_suburbs():
+    # Noted that this URL does change to SearchCrit2 for sectional title
+    # But assuming suburbs are the same for both full title and sectional title
     url = 'http://valuation2022.durban.gov.za/FramePages/SearchCrit.aspx'
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
@@ -24,7 +26,6 @@ def get_suburbs():
         if value:
             option_data.append({'text': text, 'value': value})
 
-    # TODO: Actually save the data
     return pd.DataFrame(option_data)
 
 
@@ -51,6 +52,7 @@ def save_data(table):
 
     df = pd.DataFrame(data, columns=headers)
     print(df)
+    # TODO: Actually save the data
 
 
 def scrape_full_title():
@@ -61,6 +63,7 @@ def scrape_full_title():
     # For each suburb, make request to get data
     for index, suburb in suburbs.iterrows():
         suburb_value = suburb["value"]
+        # TODO change roll based on whether full title or sectional title
         search_url = (f"{url}?Roll=1&VolumeNo=&RateNumber=&StreetNo=&StreetName=&Suburb={suburb_value}"
                       f"&ERF=&Portion=&DeedsTown=&SchemeName=&SectionNumber=&All=true")
 
