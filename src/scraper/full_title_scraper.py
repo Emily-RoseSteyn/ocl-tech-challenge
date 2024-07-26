@@ -24,7 +24,33 @@ def get_suburbs():
         if value:
             option_data.append({'text': text, 'value': value})
 
+    # TODO: Actually save the data
     return pd.DataFrame(option_data)
+
+
+def process_cells(cells):
+    row_data = []
+    for cell in cells:
+        row_data.append(cell.text.strip())
+    return row_data
+
+
+def save_data(table):
+    data = []
+    headers = []
+
+    # Skip the first row which has the number of results
+    rows = table.find_all('tr')[1:]
+
+    for row in rows:
+        cells = row.find_all(['th', 'td'])
+        if not headers:
+            headers = process_cells(cells)
+        else:
+            data.append(process_cells(cells))
+
+    df = pd.DataFrame(data, columns=headers)
+    print(df)
 
 
 def scrape_full_title():
@@ -44,8 +70,9 @@ def scrape_full_title():
         table = soup.find('table', class_='searchResultTable')
 
         if table:
-            # Do something with the table
             print("Table found")
+            save_data(table)
+
         else:
             print("Table not found")
         break
