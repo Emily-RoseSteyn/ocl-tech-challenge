@@ -33,6 +33,7 @@ docker exec -it <CONTAINER_NAME> psql -U ocl_challenge
 
 Where CONTAINER_NAME is the docker service name that shows up for the postgres instance after running `docker ps`. Eg `development-ocl_db-1`.
 
+**Initialising Database**
 
 ## Part 1: Web Scraping and Data Storage
 
