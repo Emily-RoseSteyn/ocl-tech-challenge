@@ -14,9 +14,7 @@ psycopg = "^3.2.1"
 django = "^5.0.7"
 requests = "^2.32.3"
 beautifulsoup4 = "^4.12.3"
-lxml = "^5.2.2"
 pandas = "^2.2.2"
-html5lib = "^1.1"
 
 
 [build-system]
