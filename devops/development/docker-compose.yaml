@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+
+  # Postgres database service
+  ocl_db:
+    image: postgres
+    restart: always
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: ocl_challenge
+      POSTGRES_USER: ocl_challenge
+    ports:
+      - '5435:5432'
+    volumes:
+      - ocl-data:/var/lib/postgresql/data
+
+volumes:
+  ocl-data:
