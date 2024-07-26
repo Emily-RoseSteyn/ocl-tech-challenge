@@ -37,6 +37,9 @@ Where CONTAINER_NAME is the docker service name that shows up for the postgres i
 
 ## Part 1: Web Scraping and Data Storage
 
+[//]: # (TODO: Data diagram)
+[//]: # (TODO: Description of which parts I am leaving out - e.g. not doing second level scraping)
+
 ## Part 2: API Development
 
 ## Part 3: Deployment Strategy
