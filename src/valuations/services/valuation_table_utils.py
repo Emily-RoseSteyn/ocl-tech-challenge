@@ -57,8 +57,8 @@ def save_table_data(table, roll_type):
         df.sort_index(inplace=True)
 
         # Modify types
-        df['market_value'] = df['market_value'].str.replace(',', '').astype(float)
-        df['registered_extent'] = df['registered_extent'].str.replace(',', '').astype(float)
+        df['market_value'] = df['market_value'].str.replace(',', '').replace('', '0').astype(float)
+        df['registered_extent'] = df['registered_extent'].str.replace(',', '').replace('', '0').astype(float)
 
         # Save the data
         print('Saving data')
