@@ -52,7 +52,7 @@ def save_table_data(table, roll_type):
 
         # TODO: Actually save the data
         print(df)
-        df.to_sql('valuations_valuation', engine, if_exists='append', index=True)
+        df.to_sql('valuations_valuation', engine, if_exists='append', index=False)
 
     else:
         print('No data found')
