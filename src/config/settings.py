@@ -80,8 +80,8 @@ DATABASES = {
         "NAME": "ocl_challenge",
         "USER": "ocl_challenge",
         "PASSWORD": "mysecretpassword",
-        "HOST": "0.0.0.0",
-        "PORT": "5432",
+        "HOST": "localhost",
+        "PORT": "6543",
     }
 
 }

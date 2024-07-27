@@ -35,6 +35,12 @@ Where CONTAINER_NAME is the docker service name that shows up for the postgres i
 
 **Initialising Database**
 
+**Running Django Server**
+
+To run the Django app, run the following from root:
+
+`python src/manage.py runserver`
+
 ## Part 1: Web Scraping and Data Storage
 
 [//]: # (TODO: Data diagram)
@@ -46,14 +52,14 @@ Where CONTAINER_NAME is the docker service name that shows up for the postgres i
 
 
 ## Caveats
+**Best Practices**
+
+This app is developed as a prototype for a development environment. I would typically be a lot more thorough in designing and implementing maintainable, reusable, and secure code (e.g. using tailored database design depending on the use case and ensuring that environment variables are loaded from a git ignored env file rather than exposed in the repo). However, again, given the time constraint and being away, I chose to rather focus on developing a prototype to fit the instructions instead of over engineering the solution.
 
 **First Time Django**
 
 This is my first time using Django and given the limited time constraint, I really just tested the waters. 
 
-**Best Practices**
-
-I would typically be a lot more thorough in designing and implementing maintainable, reusable, and secure code (e.g. using tailored database design depending on the use case and ensuring that environment variables are loaded from a git ignored env file rather than exposed in the repo). However, again, given the time constraint and being away, I chose to rather focus on developing a prototype to fit the instructions instead of over engineering the solution.
 
 # Task List
 * Clean data
