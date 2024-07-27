@@ -42,9 +42,6 @@ class Scraper(metaclass=abc.ABCMeta):
             else:
                 print("Table not found")
 
-            # TODO: Remove break
-            break
-
 
 class FullTitleScraper(Scraper):
     """Scrapes the full titles from the valuations website"""
