@@ -23,18 +23,21 @@ def process_cells(cells):
 
 
 def save_table_data(table, roll_type):
-    data = []
-    headers = []
+    # Get headers
+    header_content = table.find_all('tr', class_='SearchResultRowHeader')
+    # Assuming only one row of header content
+    header_cells = header_content[0].find_all(['th', 'td'])
+    headers = process_cells(header_cells)
 
     # Skip the first row which has the number of results
-    rows = table.find_all('tr')[1:]
+    rows = table.find_all('tr', {'class': ['color0', 'color1']})
+
+    # Get data
+    data = []
 
     for row in rows:
         cells = row.find_all(['th', 'td'])
-        if not headers:
-            headers = process_cells(cells)
-        else:
-            data.append(process_cells(cells))
+        data.append(process_cells(cells))
 
     df = pd.DataFrame(data, columns=headers)
 
@@ -61,7 +64,7 @@ def save_table_data(table, roll_type):
         df['registered_extent'] = df['registered_extent'].str.replace(',', '').replace('', '0').astype(float)
 
         # Save the data
-        print('Saving data')
+        print(f'Saving {len(rows)} rows of data')
         df.to_sql('valuations_valuation', engine, if_exists='append', index=True)
 
     else:
