@@ -13,7 +13,8 @@ class Scraper(metaclass=abc.ABCMeta):
 
     # Could generalise even further by handling different websites but that's out of scope
 
-    def __init__(self, roll_number):
+    def __init__(self, roll_type, roll_number):
+        self._roll_type = roll_type
         self._roll_number = roll_number
 
     def scrape(self):
@@ -23,18 +24,18 @@ class Scraper(metaclass=abc.ABCMeta):
 
         # For each suburb, make request to get data
         for index, suburb in suburbs.iterrows():
+            suburb_text = suburb["text"]
             suburb_value = suburb["value"]
             search_url = (
                 f"{url}?Roll={self._roll_number}&VolumeNo=&RateNumber=&StreetNo=&StreetName=&Suburb={suburb_value}"
                 f"&ERF=&Portion=&DeedsTown=&SchemeName=&SectionNumber=&All=true")
 
-            print(search_url)
+            print(f"Retrieving {self._roll_type} data in suburb {suburb_text}")
             response = requests.get(search_url)
             soup = BeautifulSoup(response.content, 'html.parser')
             table = soup.find('table', class_='searchResultTable')
 
             if table:
-                print("Table found")
                 save_table_data(table)
 
             else:
@@ -48,14 +49,16 @@ class FullTitleScraper(Scraper):
     """Scrapes the full titles from the valuations website"""
 
     def __init__(self):
+        roll_type = 'full_title'
         roll_number = 1
-        super().__init__(roll_number)
+        super().__init__(roll_type, roll_number)
 
 
 class SectionalTitleScraper(Scraper):
     """Scrapes the sectional titles from the valuations website"""
 
     def __init__(self):
+        roll_type = 'sectional_title'
         roll_number = 2
-        super().__init__(roll_number)
+        super().__init__(roll_type, roll_number)
 
