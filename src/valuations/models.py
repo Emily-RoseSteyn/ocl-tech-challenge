@@ -13,5 +13,5 @@ class Valuation(models.Model):
     first_owner = models.CharField(max_length=200)
     use_code = models.CharField(max_length=200)
     rating_category = models.CharField(max_length=200)
-    market_value = models.CharField(max_length=200)
-    registered_extent = models.CharField(max_length=200)
+    market_value = models.DecimalField()
+    registered_extent = models.DecimalField()

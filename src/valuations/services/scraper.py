@@ -37,7 +37,7 @@ class Scraper(metaclass=abc.ABCMeta):
             table = soup.find('table', class_='searchResultTable')
 
             if table:
-                save_table_data(table)
+                save_table_data(table, self._roll_type)
 
             else:
                 print("Table not found")
