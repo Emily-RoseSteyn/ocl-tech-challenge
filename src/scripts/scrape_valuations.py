@@ -1,4 +1,4 @@
-from src.valuations.services.scraper import FullTitleScraper, SectionalTitleScraper
+from valuations.services.scraper import FullTitleScraper, SectionalTitleScraper
 
 
 def main() -> None:

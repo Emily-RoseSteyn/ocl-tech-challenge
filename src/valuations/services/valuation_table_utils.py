@@ -24,4 +24,5 @@ def save_table_data(table):
 
     df = pd.DataFrame(data, columns=headers)
     print('Saving data')
+    print(df)
     # TODO: Actually save the data

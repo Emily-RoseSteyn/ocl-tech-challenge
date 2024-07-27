@@ -4,8 +4,9 @@ import requests
 
 from bs4 import BeautifulSoup
 
-from src.valuations.services.get_valuation_suburbs import get_valuation_suburbs
-from src.valuations.services.valuation_table_utils import save_table_data
+from valuations.services.get_valuation_suburbs import get_valuation_suburbs
+from valuations.services.valuation_table_utils import save_table_data
+from valuations.constants import ROLL_TYPE_CHOICES
 
 
 class Scraper(metaclass=abc.ABCMeta):
@@ -49,7 +50,7 @@ class FullTitleScraper(Scraper):
     """Scrapes the full titles from the valuations website"""
 
     def __init__(self):
-        roll_type = 'full_title'
+        roll_type = ROLL_TYPE_CHOICES["full_title"]
         roll_number = 1
         super().__init__(roll_type, roll_number)
 
@@ -58,7 +59,7 @@ class SectionalTitleScraper(Scraper):
     """Scrapes the sectional titles from the valuations website"""
 
     def __init__(self):
-        roll_type = 'sectional_title'
+        roll_type = ROLL_TYPE_CHOICES["sectional_title"]
         roll_number = 2
         super().__init__(roll_type, roll_number)
 
