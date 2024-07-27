@@ -45,6 +45,16 @@ Where CONTAINER_NAME is the docker service name that shows up for the postgres i
 ## Part 3: Deployment Strategy
 
 
+## Caveats
+
+**First Time Django**
+
+This is my first time using Django and given the limited time constraint, I really just tested the waters. 
+
+**Best Practices**
+
+I would typically be a lot more thorough in designing and implementing maintainable, reusable, and secure code (e.g. using tailored database design depending on the use case and ensuring that environment variables are loaded from a git ignored env file rather than exposed in the repo). However, again, given the time constraint and being away, I chose to rather focus on developing a prototype to fit the instructions instead of over engineering the solution.
+
 # Task List
 * Clean data
 * Save data - Django
