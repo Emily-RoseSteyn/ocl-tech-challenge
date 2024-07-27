@@ -23,14 +23,18 @@ def process_cells(cells):
 
 
 def save_table_data(table, roll_type):
+    # Check if any data
+    rows = table.find_all('tr', {'class': ['color0', 'color1']})
+
+    if len(rows) == 0:
+        print('No data')
+        return
+
     # Get headers
     header_content = table.find_all('tr', class_='SearchResultRowHeader')
     # Assuming only one row of header content
     header_cells = header_content[0].find_all(['th', 'td'])
     headers = process_cells(header_cells)
-
-    # Skip the first row which has the number of results
-    rows = table.find_all('tr', {'class': ['color0', 'color1']})
 
     # Get data
     data = []
