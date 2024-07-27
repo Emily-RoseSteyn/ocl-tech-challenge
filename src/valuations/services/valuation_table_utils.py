@@ -1,5 +1,17 @@
 import pandas as pd
 
+from django.conf import settings
+from sqlalchemy import create_engine
+
+user = settings.DATABASES['default']['USER']
+password = settings.DATABASES['default']['PASSWORD']
+database_name = settings.DATABASES['default']['NAME']
+host = settings.DATABASES['default']['HOST']
+port = settings.DATABASES['default']['PORT']
+
+database_url = f'postgresql+psycopg://{user}:{password}@{host}:{port}/{database_name}'
+engine = create_engine(database_url, echo=False)
+
 
 def process_cells(cells):
     row_data = []
@@ -37,7 +49,10 @@ def save_table_data(table, roll_type):
             'Registered Extent': 'registered_extent',
         })
         df["roll_type"] = roll_type
+
         # TODO: Actually save the data
         print(df)
+        df.to_sql('valuations_valuation', engine, if_exists='append', index=True)
+
     else:
         print('No data found')
