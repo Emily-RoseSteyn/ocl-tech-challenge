@@ -76,6 +76,38 @@ Ideally, a bit more time would have been spent on searching and filtering data a
 
 ## Part 3: Deployment Strategy
 
+To deploy this application to production, I would definitely take a containerized approach to the application. I would dockerize each component (database, backend, frontend if there is any UI, and a reverse proxy to handle routing effectively).
+
+I am relatively agnostic between Google Cloud Platform and Amazon Web Services - I have generally found GCP easier to use and maintain. However, certain use cases could require data to be hosted in South Africa, in which case, GCP does not yet have infrastructure in SA whereas AWS does. 
+
+If we were to go the GCP route, I would likely start with a simple Cloud Run setup. However, if the application needs to scale, a more granular approach with kubernetes and GCP's CloudSQL tool might be more appropriate. There are similar alternatives for AWS.
+
+**Scheduled Scrapers**
+
+I would likely split out the functionality for scraping into a standalone python microservice and use cron jobs in that "scheduler" container/microservice to run the script daily at a given time. Some considerations would be required of when is the ideal time to run the scheduler to ensure database writes don't interfere with users. This would come down to picking the least busy time of day.
+
+**Python Web App Framework**
+I have already gone ahead and implemented the API with Django/Django-ninja. From my initial research, deploying this to production requires:
+* Selecting and installing a [python web server](https://docs.djangoproject.com/en/5.0/howto/deployment/)
+* Dockerizing the selected server with the API code
+* Ensuring that all relevant config is set - eg. paths to project files, ports, internal ip addresses, etc. 
+* Ensuring production secrets are not committed to the repo and stored in environment files.
+* Deploying the docker container to the chosen cloud provider.
+* Ensuring there is an ingress service or similar that allows access to the running docker service. This would require DNS and SSL to be configured.
+
+**Errors, Downtime, Alerts**
+Most cloud providers have in-built for monitoring errors and alerts. This would be the first point of call for a production environment. Downtime can be monitored using a tool like pingdom or similar. A slack integration or similar could be used to ensure raised errors are forwarded to the development team. Triaging of the errors/alerts/downtime is then a follow-up process with the dev team and other stakeholders to determine importance and urgency to resolve and who is responsible.
+
+Importantly, relying on error or downtime alerts in production should be used as a fail-safe - ideally, deployed code should be tested and QA'd both in development and in a staging environment. Logs should be incorporated from the get-go to ensure that functionality is debuggable. Additionally, ideally, a test-driven approach to coding should be followed to ensure robust, high-quality code. This should proactively reduce the risk of critical errors and alerts in production.
+
+**Additional Production Notes**
+
+Some other tools worth noting for a production system include:
+* CloudFlare both for security purposes and mitigating the risk of various security threats (e.g. DDoS attacks).
+* Papertrail or similar for more customised log monitoring services.
+* Hotjar for monitoring user behaviour. This can be especially useful when unexpected bugs arise that are difficult to reproduce. 
+
+
 ## Caveats
 
 **Best Practices**
@@ -88,4 +120,4 @@ fit the instructions instead of over engineering the solution.
 
 **First Time Django**
 
-This is my first time using Django and given the limited time constraint, I really just tested the waters.
+This is my first time using Django and given the limited time constraint, I really just tested the waters. Would love to hear any feedback and guidance on best practices :)
