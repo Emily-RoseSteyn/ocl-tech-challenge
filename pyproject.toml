@@ -4,10 +4,17 @@ version = "0.1.0"
 description = ""
 authors = ["Emily-Rose Steyn <emilyrosesteyn@gmail.com>"]
 readme = "README.md"
-packages = [{include = "ocl_tech_challenge"}]
+packages = [{ include = "src" }, { include = "valuations", from = "src" }]
 
 [tool.poetry.dependencies]
 python = "^3.10"
+django = "^5.0.7"
+requests = "^2.32.3"
+beautifulsoup4 = "^4.12.3"
+pandas = "^2.2.2"
+psycopg = { extras = ["binary"], version = "^3.2.1" }
+sqlalchemy = "^2.0.31"
+django-ninja = "^1.2.2"
 
 
 [build-system]
