@@ -1,29 +1,41 @@
 from django.core.paginator import Paginator
-from ninja import NinjaAPI
+from ninja import NinjaAPI, Schema
 
 from valuations.models import Valuation
 
 api = NinjaAPI()
 
 
-@api.get("")
-def get(request):
+class PaginationDetails(Schema):
+    page: int = 1
+    per_page: int = 10  # TODO: Could come from config
+    total_pages: int = 100
+    count: int = 1000
+
+
+class PaginatedResponseSchema(Schema):
+    """
+    This is the paginated response schema.
+    """
+    # data: Valuation
+    pagination: PaginationDetails
+
+
+@api.get("", response=PaginatedResponseSchema)
+def get(request, page: int = 1):
     # TODO: Could generalise this pagination and add filtering/searching
     valuations_list = Valuation.objects.all().order_by('rate_number').values()
     # Show 10 valuations per page
-    number_per_page = 10
+    number_per_page = 10  # TODO: Could come from config
     paginator = Paginator(valuations_list, number_per_page)
 
-    current_page_number = request.GET.get("page")
+    current_page_number = page
 
     # TODO: Clean up these checks - don't like that it's nested
-    if current_page_number and current_page_number.isdigit():
-        current_page_number = int(request.GET.get("page"))
-
-        if current_page_number < 1:
-            current_page_number = 1
-        elif current_page_number > paginator.num_pages:
-            current_page_number = paginator.num_pages
+    if current_page_number and current_page_number < 1:
+        current_page_number = 1
+    elif current_page_number and current_page_number > paginator.num_pages:
+        current_page_number = paginator.num_pages
     else:
         current_page_number = 1
 
