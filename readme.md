@@ -58,7 +58,7 @@ can be run from the root directory using Django's base command functionality:
 python src/manage.py scrape_valuations
 ```
 
-To keep things simple, the data layer is designed to be flat with no relations. However, in a "real" application, the database would be designed to have normalised relations that make sense for the given application. 
+To keep things simple, the data layer is designed to be flat with no relations. Data is also minimally cleaned and typed. However, in a "real" application, the database would be designed to have normalised relations that make sense for the given application and cleaning would be more thorough. 
 
 Additionally, in this case, no second level scraping is done - ie only the returned table is stored and links are not followed in the retrieved tables.
 
@@ -66,9 +66,13 @@ Finally, all data scraped is stored. This is useful for tracking changes. Howeve
 
 [//]: # (TODO: Data diagram)
 
-[//]: # (TODO: Description of which parts I am leaving out - e.g. not doing second level scraping)
-
 ## Part 2: API Development
+
+In order to retrieve data via API, [django-ninja](https://github.com/vitalik/django-ninja) is used which also helps with openapi specifications. The API endpoint is documented at [http://127.0.0.1:8000/valuations/docs](http://127.0.0.1:8000/valuations/docs).
+
+Originally, a "vanilla" django view was used but this proved difficult to document easily. Django ninja seemed like a lightweight alternative for setting up the API endpoint. However, I would prefer to have the api docs fully available at something like /swagger or /docs rather than what seems to be docs per api file (in this case, valuations).
+
+Ideally, a bit more time would have been spent on searching and filtering data and ensuring that duplicates don't get returned from the endpoint. This would be done by querying for latest data by rate number (assuming rate number is what's unique). Unfortunately, didn't have time to get to this.
 
 ## Part 3: Deployment Strategy
 
@@ -85,17 +89,3 @@ fit the instructions instead of over engineering the solution.
 **First Time Django**
 
 This is my first time using Django and given the limited time constraint, I really just tested the waters.
-
-# Task List
-
-* Clean data
-* Save data - Django
-* Init tables django
-* Handle duplicates?
-* Data diagram
-* Description of not doing second level scraping - would need more info to ensure scraping is gathering correct data and
-  in expected format
-* Notes on robustness - error handling etc and maintainability
-* API to retrieve from db
-* Additional descriptions based on api?
-* Part 3 deployment strategy
