@@ -1,9 +1,27 @@
+from datetime import datetime
+from typing import List
+
 from django.core.paginator import Paginator
 from ninja import NinjaAPI, Schema
 
+from valuations.constants import CITY_CHOICES, ROLL_TYPE_CHOICES
 from valuations.models import Valuation
 
 api = NinjaAPI()
+
+
+class ValuationSchema(Schema):
+    last_modified: datetime
+    city: str = CITY_CHOICES["durban"]
+    roll_type: str = ROLL_TYPE_CHOICES["full_title"]
+    rate_number: str = '05100037'
+    legal_description: str = 'Portion 16 of ERF 74 of AMANZIMTOTI'
+    address: str = '26 SOMERSET WAY, AMANZIMTOTI'
+    first_owner: str = 'CRUCHINHO RUI PEREIRA'
+    use_code: str = 'Single Residential (15)'
+    rating_category: str = 'Residential'
+    market_value: float = 1830000.000
+    registered_extent: float = 1634.000
 
 
 class PaginationDetails(Schema):
@@ -17,7 +35,7 @@ class PaginatedResponseSchema(Schema):
     """
     This is the paginated response schema.
     """
-    # data: Valuation
+    data: List[ValuationSchema]
     pagination: PaginationDetails
 
 
