@@ -58,7 +58,7 @@ can be run from the root directory using Django's base command functionality:
 python src/manage.py scrape_valuations
 ```
 
-To keep things simple, the data layer is designed to be flat with no relations. However, in a "real" application, the database would be designed to have normalised relations that make sense for the given application. 
+To keep things simple, the data layer is designed to be flat with no relations. Data is also minimally cleaned and typed. However, in a "real" application, the database would be designed to have normalised relations that make sense for the given application and cleaning would be more thorough. 
 
 Additionally, in this case, no second level scraping is done - ie only the returned table is stored and links are not followed in the retrieved tables.
 
