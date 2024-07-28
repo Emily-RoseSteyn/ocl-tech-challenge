@@ -68,7 +68,9 @@ Finally, all data scraped is stored. This is useful for tracking changes. Howeve
 
 ## Part 2: API Development
 
-In order to retrieve data via API, a django view is used. The API endpoint is documented in.
+In order to retrieve data via API, [django-ninja](https://github.com/vitalik/django-ninja) is used which also helps with openapi specifications. The API endpoint is documented at [http://127.0.0.1:8000/valuations/docs](http://127.0.0.1:8000/valuations/docs).
+
+Originally, a "vanilla" django view was used but this proved difficult to document easily. Django ninja seemed like a lightweight alternative for setting up the API endpoint. However, I would prefer to have the api docs fully available at something like /swagger or /docs rather than what seems to be docs per api file (in this case, valuations).
 
 Ideally, a bit more time would have been spent on searching and filtering data and ensuring that duplicates don't get returned from the endpoint. This would be done by querying for latest data by rate number (assuming rate number is what's unique). Unfortunately, didn't have time to get to this.
 
