@@ -66,9 +66,11 @@ Finally, all data scraped is stored. This is useful for tracking changes. Howeve
 
 [//]: # (TODO: Data diagram)
 
-[//]: # (TODO: Description of which parts I am leaving out - e.g. not doing second level scraping)
-
 ## Part 2: API Development
+
+In order to retrieve data via API, a django view is used. The API endpoint is documented in.
+
+Ideally, a bit more time would have been spent on searching and filtering data and ensuring that duplicates don't get returned from the endpoint. This would be done by querying for latest data by rate number (assuming rate number is what's unique). Unfortunately, didn't have time to get to this.
 
 ## Part 3: Deployment Strategy
 
@@ -85,17 +87,3 @@ fit the instructions instead of over engineering the solution.
 **First Time Django**
 
 This is my first time using Django and given the limited time constraint, I really just tested the waters.
-
-# Task List
-
-* Clean data
-* Save data - Django
-* Init tables django
-* Handle duplicates?
-* Data diagram
-* Description of not doing second level scraping - would need more info to ensure scraping is gathering correct data and
-  in expected format
-* Notes on robustness - error handling etc and maintainability
-* API to retrieve from db
-* Additional descriptions based on api?
-* Part 3 deployment strategy
